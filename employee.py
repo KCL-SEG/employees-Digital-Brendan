@@ -1,11 +1,11 @@
 # Types of commission
 class ContractCommission:
-    def __init__(self, contract_amount, contract_price):
+    def __init__(self, contract_amount, contract_price) -> None:
         self.description = f"commission for {contract_amount} contract(s) at {contract_price}/contract"
         self.value = contract_price * contract_amount
 
 class FixedCommission:
-    def __init__(self, bonus):
+    def __init__(self, bonus)-> None:
         self.description = f"bonus commission of {bonus}"
         self.value = bonus
 
