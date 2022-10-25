@@ -1,15 +1,13 @@
-# Types of commission
 class ContractCommission:
     def __init__(self, contract_amount, contract_price) -> None:
         self.description = f"commission for {contract_amount} contract(s) at {contract_price}/contract"
-        self.value = contract_price * contract_amount
+        self.value = contract_amount * contract_price
 
 class FixedCommission:
-    def __init__(self, bonus)-> None:
+    def __init__(self, bonus) -> None:
         self.description = f"bonus commission of {bonus}"
         self.value = bonus
 
-# Types of employee
 class Employee:
     def __init__(self, name, commission):
         self.name = name
@@ -20,32 +18,31 @@ class Employee:
 
     def __str__(self):
         return f"{self.name} works on a {self.get_contract_desc()}" + \
-            (f" and gets a {self.commission.description}" if self.commission else "") + \
+            (f" and receives a {self.commission.description}" if self.commission else "") + \
                 f". Their total pay is {self.get_pay()}."
+
+class HourlyEmployee(Employee):
+    def __init__(self, name, hours, hourly_pay, commission=None):
+        super().__init__(name, commission)
+        self.hours = hours
+        self.hourly_pay = hourly_pay
+
+    def get_base_pay(self):
+        return self.hours * self.hourly_pay
+
+    def get_contract_desc(self):
+        return f"contract of {self.hours} hours at {self.hourly_pay}/hour"
 
 class SalaryEmployee(Employee):
     def __init__(self, name, salary, commission=None):
         super().__init__(name, commission)
         self.salary = salary
-
-    def get_contract_desc(self):
-        return f"monthly salary of {self.salary}"
-    
+        
     def get_base_pay(self):
         return self.salary
 
-class HourlyEmployee(Employee):
-    def __init__(self, name, hours, pay_per_hour, commission=None):
-        super().__init__(name, commission)
-        self.hours = hours
-        self.pay_per_hour = pay_per_hour
-
     def get_contract_desc(self):
-        return f"contract of {self.hours} hours at {self.pay_per_hour}/hour"
-
-    def get_base_pay(self):
-        return self.hours * self.pay_per_hour
-
+        return f"monthly salary of {self.salary}"
 
 # Billie works on a monthly salary of 4000.  Their total pay is 4000.
 billie = SalaryEmployee("Billie", 4000)
